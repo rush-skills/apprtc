@@ -140,7 +140,7 @@ def get_wss_parameters(request):
       wss_host_port_pair = constants.WSS_HOST_PORT_PAIRS[0]
 
   if wss_tls and wss_tls == 'false':
-    wss_url = 'wss://' + wss_host_port_pair + '/wss'
+    wss_url = 'wss://' + wss_host_port_pair + '/ws'
     wss_post_url = 'https://' + wss_host_port_pair
   else:
     wss_url = 'wss://' + wss_host_port_pair + '/ws'
