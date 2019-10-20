@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <!--
-  AppRTC mod by ankur
+ *  Copyright (c) 2014 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
 -->
 <html>
 <head>
@@ -16,7 +20,7 @@
 
   <base target="_blank">
 
-  <title>AppRTC - Ankur</title>
+  <title>AppRTC</title>
 
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" sizes="192x192" href="/images/webrtc-icon-192x192.png">
@@ -66,7 +70,7 @@
     <div id="sharing-div">
       <div id="room-link">Waiting for someone to join this room: <a id="room-link-href" href="{{ room_link }}" target="_blank">{{ room_link }}</a></div>
     </div>
-    <div id="info-div">AppRTC - ankur</div>
+    <div id="info-div">Code for AppRTC is available from <a href="http://github.com/webrtc/apprtc" title="GitHub repo for AppRTC">github.com/webrtc/apprtc</a></div>
     <div id="status-div"></div>
     <div id="rejoin-div" class="hidden"><span>You have left the call.</span> <button id="rejoin-button">REJOIN</button><button id="new-room-button">NEW ROOM</button></div>
   </footer>
@@ -106,12 +110,23 @@
     </svg>
 
   </div>
- 
+  <div id="privacy">
+    <a href="//www.google.com/accounts/TOS">Terms</a>
+    &#32;&#124;&#32;
+    <a href="//www.google.com/policies/privacy/">Privacy</a>
+    &#32;&#124;&#32;
+    <a href="//github.com/webrtc/apprtc">Code repo</a>
+  </div>
 
+{% if not chromeapp %}
   {{ include_loopback_js }}
+{% endif %}
 
   <script src="/js/apprtc.debug.js"></script>
 
+{% if chromeapp %}
+  <script src="/js/appwindow.js"></script>
+{% endif %}
 
 {% if not chromeapp %}
   <script type="text/javascript">
