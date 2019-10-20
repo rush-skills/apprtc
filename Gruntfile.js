@@ -2,13 +2,17 @@
 
 /* globals module */
 var out_app_engine_dir = 'out/app_engine';
-var app_engine_path = 'temp/google-cloud-sdk/platform/google_appengine'
+var app_engine_path = '/usr/lib/google-cloud-sdk/platform/google_appengine'
 // Check if running on travis, if so do not install in User due to using
 // pythonEnv.
 var isTravis = ('TRAVIS' in process.env && 'CI' in process.env) ?
     '' : '--user';
 
 module.exports = function(grunt) {
+
+  require('google-closure-compiler').grunt(grunt, {
+    platform: ['native']
+  });
   // configure project
   grunt.initConfig({
     // make node configurations available
@@ -129,8 +133,8 @@ module.exports = function(grunt) {
       }
     },
 
-    closurecompiler: {
-      debug: {
+    'closure-compiler': {
+      my_target: {
         files: {
           // Destination: [source files]
           'out/app_engine/js/apprtc.debug.js': [
@@ -155,7 +159,9 @@ module.exports = function(grunt) {
         options: {
           'compilation_level': 'WHITESPACE_ONLY',
           'language_in': 'ECMASCRIPT5',
-          'formatting': 'PRETTY_PRINT'
+          'formatting': 'PRETTY_PRINT',
+          'manage_closure_dependencies': true,
+          'debug': true
         },
       },
     },
@@ -170,7 +176,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-html');
   grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-closurecompiler-new-grunt');
+  // grunt.loadNpmTasks('grunt-closurecompiler-new-grunt');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadTasks('build/grunt-chrome-build');
 
@@ -184,5 +190,6 @@ module.exports = function(grunt) {
                                         'shell:runPythonTests',
                                         'shell:removePythonTestsFromOutAppEngineDir']);
   grunt.registerTask('runUnitTests', ['shell:runUnitTests']),
-  grunt.registerTask('build', ['shell:buildAppEnginePackage', 'shell:genJsEnums', 'closurecompiler:debug', 'grunt-chrome-build']);
+  grunt.registerTask('build', ['shell:buildAppEnginePackage', 'shell:genJsEnums', 
+   'closure-compiler:my_target']);
 };

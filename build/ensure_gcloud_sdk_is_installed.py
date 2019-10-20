@@ -54,20 +54,21 @@ def _Cleanup(file_paths_to_remove):
 
 
 def main():
-  if not os.path.exists(TEMP_DIR):
-    os.mkdir(TEMP_DIR)
+  # if not os.path.exists(TEMP_DIR):
+  #   os.mkdir(TEMP_DIR)
 
-  if os.path.isfile(os.path.join(GCLOUD_SDK_PATH, 'bin', 'gcloud')):
-    print 'Already has %s, skipping the download' % GCLOUD_SDK_INSTALL_FOLDER
-    _EnsureAppEngineIsInstalled(GCLOUD_SDK_PATH)
-    _Cleanup([os.path.join(TEMP_DIR, GCLOUD_SDK_TAR_FILE)])
-    return
+  # if os.path.isfile(os.path.join(GCLOUD_SDK_PATH, 'bin', 'gcloud')):
+  #   print 'Already has %s, skipping the download' % GCLOUD_SDK_INSTALL_FOLDER
+  #   _EnsureAppEngineIsInstalled(GCLOUD_SDK_PATH)
+  #   _Cleanup([os.path.join(TEMP_DIR, GCLOUD_SDK_TAR_FILE)])
+  #   return
 
-  _Download(GCLOUD_DOWNLOAD_URL + GCLOUD_SDK_TAR_FILE,
-            os.path.join(TEMP_DIR, GCLOUD_SDK_TAR_FILE))
-  _Extract(os.path.join(TEMP_DIR, GCLOUD_SDK_TAR_FILE), TEMP_DIR)
-  _EnsureAppEngineIsInstalled(GCLOUD_SDK_PATH)
-  _Cleanup([os.path.join(TEMP_DIR, GCLOUD_SDK_TAR_FILE)])
+  # _Download(GCLOUD_DOWNLOAD_URL + GCLOUD_SDK_TAR_FILE,
+  #           os.path.join(TEMP_DIR, GCLOUD_SDK_TAR_FILE))
+  # _Extract(os.path.join(TEMP_DIR, GCLOUD_SDK_TAR_FILE), TEMP_DIR)
+  # _EnsureAppEngineIsInstalled(GCLOUD_SDK_PATH)
+  # _Cleanup([os.path.join(TEMP_DIR, GCLOUD_SDK_TAR_FILE)])
+  print 'Skipping cloud setup'
 
 
 if __name__ == "__main__":
